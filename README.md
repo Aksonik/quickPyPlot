@@ -1,2 +1,2 @@
 # quickPyPlot
-An interface for quick plotting with Python.
+#### An interface for quick plotting with Python.
