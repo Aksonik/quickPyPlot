@@ -1,0 +1,8 @@
+xyCol 1 2
+xyErrCol 0 3
+dataSets 1
+xySubPlt 1 1
+labels -,-,-,-,-,-
+logSca -
+xAxis 0 0
+yAxis 0 0
