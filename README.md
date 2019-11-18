@@ -11,7 +11,7 @@
 
 *source ~/.bashrc*
 
-#### If only input data is provided the program generates a simple plot: 
+#### If only input data are provided the program generates a simple plot: 
 
 *python main.py input/csd/aa/c*/csd.res*
 
@@ -30,4 +30,5 @@
 python 3.5
 
 pip install numpy
+
 pip install matplotlib

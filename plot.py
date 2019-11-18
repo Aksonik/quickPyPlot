@@ -2,9 +2,13 @@ import numpy as np
 import matplotlib.pyplot
 from pylab import *
 import setOpt
+import readOpt
 import styles
 
-class plotClass:
+class plotClass():
+
+ def __init__(self):
+  self.optFile="-"
 
  def simplePlot(dataFiles):
   print("Only the data are provided - plot the simplest possible figure:")
@@ -18,53 +22,70 @@ class plotClass:
   savefig("plt.png")
   show()
 
- def saveOpt(setOptObj):
+ def saveOpt(insertOptObj):
   fileOpt=open("plt.opt","w")
 
-  fileOpt.write("xyCol %d %d\n" % (setOptObj.xyCol[0],setOptObj.xyCol[1]))
-  fileOpt.write("xyErrCol %d %d\n" % (setOptObj.xyErrCol[0],setOptObj.xyErrCol[1]))
+  fileOpt.write("xyCol %d %d\n" % (insertOptObj.xyCol[0],insertOptObj.xyCol[1]))
+  fileOpt.write("xyErrCol %d %d\n" % (insertOptObj.xyErrCol[0],insertOptObj.xyErrCol[1]))
 
 
-  fileOpt.write("dataSets %i\n" % setOptObj.dataSets)
-  fileOpt.write("xySubPlt %i %i\n" % (setOptObj.xySubPlt[0],setOptObj.xySubPlt[1]))
+  fileOpt.write("dataSets %i\n" % insertOptObj.dataSets)
+  fileOpt.write("xySubPlt %i %i\n" % (insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1]))
 
   fileOpt.write("labels ")
-  for i in range(0,len(setOptObj.labels)):
-   if(i<len(setOptObj.labels)-1):
-    fileOpt.write("%s," % setOptObj.labels[i])
+  for i in range(0,len(insertOptObj.labels)):
+   if(i<len(insertOptObj.labels)-1):
+    fileOpt.write("%s," % insertOptObj.labels[i])
    else:
-    fileOpt.write("%s" % setOptObj.labels[i])
-  fileOpt.write("\n")
+    fileOpt.write("%s\n" % insertOptObj.labels[i])
+#  fileOpt.write("\n")
 
-  fileOpt.write("logSca %s\n" % setOptObj.logSca)
+  fileOpt.write("logSca %s\n" % insertOptObj.logSca)
 
-  fileOpt.write("xAxis %d %d\n" % (setOptObj.xAxis[0],setOptObj.xAxis[1]))
-  fileOpt.write("yAxis %d %d\n" % (setOptObj.yAxis[0],setOptObj.yAxis[1]))
+  fileOpt.write("xAxis %d %d\n" % (insertOptObj.xAxis[0],insertOptObj.xAxis[1]))
+  fileOpt.write("yAxis %d %d\n" % (insertOptObj.yAxis[0],insertOptObj.yAxis[1]))
 
   fileOpt.close()
 
- def optionsPlot(dataFiles):
+ def optionsPlot(self,dataFiles,optMode):
   print("Only the data are provided - set plotting options interactively:")
 
   #fig=figure(figsize=(10,8))
   #fig.subplots_adjust(left=0.12,bottom=0.10,right=0.98,top=0.95,hspace=0.05,wspace=0.05)
 
-  setOptObj=setOpt.setOptClass(dataFiles)
-  setOptObj.setOpt()
+  if(optMode=="setOpt"):
+   insertOptObj=setOpt.setOptClass(dataFiles)
+   insertOptObj.setOpt()
 
-  dataNum=len(dataFiles)		# total number of input data, e.g. 6
-  dataSets=setOptObj.dataSets		# number of data sets, e.g. 2
-  dataSubsets=int(dataNum/dataSets)	# number of data per set, e.g. 3
+  if(optMode=="readOpt"):
+   print(self.optFile)
+   insertOptObj=readOpt.readOptClass(dataFiles)
+   insertOptObj.readOpt(self.optFile)
+   print(insertOptObj.dataSets)
+   print(insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1])
+
+  ### 1.  1.a) AA: 10%
+  ### 2.  1.b) AA: 30%
+  ### 3.  1.c) AA:  5%
+  ### 4.  2.a) CG: 10%
+  ### 5.  2.b) CG: 30%
+  ### 6.  2.c) CG:  5%
+
+  dataNum=len(dataFiles)			# total number of input data, e.g. 6
+  dataSets=insertOptObj.dataSets		# number of data sets, e.g. 2
+  dataSubsets=int(dataNum/dataSets)		# number of data per set, e.g. 3
 
   dataFilesOrder=dataFiles
- 
+  labelsOrder=insertOptObj.labels 
+
   if(dataSets>1):
    dataFilesOrder=[]
+   labelsOrder=[]
    for i in range(1,dataSubsets+1):
     for j in range(0,dataSets):
      dataFilesOrder.append(dataFiles[(i+j*dataSubsets)-1])	# order data, e.g. 1,4,2,5,3,6
+     labelsOrder.append(insertOptObj.labels[(i+j*dataSubsets)-1])
 
-  n=0
   subPltNum=0
 
   colorNum=0
@@ -73,50 +94,58 @@ class plotClass:
 
   ax=subplot(1,1,1)
 
+  n=0
   for f in dataFilesOrder:
    n+=1
    data=np.loadtxt(f)
 
-   if((dataSets>1)&((setOptObj.xySubPlt[0]!=1)|(setOptObj.xySubPlt[1]!=1))):
+   # data sets more than 1 and subplots more than 1
+   if((dataSets>1)&((insertOptObj.xySubPlt[0]!=1)|(insertOptObj.xySubPlt[1]!=1))):
 
     if(n%2==1):
      subPltNum+=1
-     ax=subplot(setOptObj.xySubPlt[0],setOptObj.xySubPlt[1],subPltNum)
+     ax=subplot(insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1],subPltNum)	# e.g (1,4) (2,5) (3,6)
 
-   x=data[:,setOptObj.xyCol[0]-1]
-   y=data[:,setOptObj.xyCol[1]-1]
+   x=data[:,insertOptObj.xyCol[0]-1]
+   y=data[:,insertOptObj.xyCol[1]-1]
 
-   colorNum=int((n-1)%dataSubsets)
-   styleNum=int((n-1)%dataSets)
-   print(n,f,"color:",styles.colors[colorNum],"style:",styles.styles[styleNum])
+   colorNum=int((n-1)%dataSets)		# e.g. (red,blue) (red,blue) (red,blue)
+
+   styleNum=0
+   if((insertOptObj.xySubPlt[0]==1)&(insertOptObj.xySubPlt[1]==1)):
+    styleNum=int((n-1)%dataSets)
+    colorNum=int((n-1)/2)
+
+   print(n,f,"label:",labelsOrder[n-1],"color:",styles.colors[colorNum],"style:",styles.styles[styleNum])
   
    plot(x,y,\
         color=styles.colors[colorNum],\
         linewidth=styles.widths[widthNum],\
         linestyle=styles.styles[styleNum],\
-        label=setOptObj.labels[n-1])
+        label=labelsOrder[n-1])
 
-   if(setOptObj.xyErrCol[0]!=0):
-    xerr=data[:,setOptObj.xyErrCol[0]-1]
+   if(insertOptObj.xyErrCol[0]!=0):
+    xerr=data[:,insertOptObj.xyErrCol[0]-1]
     errorbar(x,y,xerr=xerr)
-   if(setOptObj.xyErrCol[1]!=0):
-    yerr=data[:,setOptObj.xyErrCol[1]-1]
+   if(insertOptObj.xyErrCol[1]!=0):
+    yerr=data[:,insertOptObj.xyErrCol[1]-1]
     errorbar(x,y,yerr=yerr)
 
-   if((setOptObj.logSca=="x")|(setOptObj.logSca=="xy")):
+   if((insertOptObj.logSca=="x")|(insertOptObj.logSca=="xy")):
     ax.set_xscale("log")
-   if((setOptObj.logSca=="y")|(setOptObj.logSca=="xy")):
+   if((insertOptObj.logSca=="y")|(insertOptObj.logSca=="xy")):
     ax.set_yscale("log")
 
-  if(setOptObj.labels[0]!="-"):
-   legend(loc=1,fontsize=12,fancybox=True).get_frame().set_alpha(0.5)
+   if(labelsOrder[0]!="-"):
+    legend(loc=1,fontsize=12,fancybox=True).get_frame().set_alpha(0.5)
 
-  if(setOptObj.xAxis[0]<setOptObj.xAxis[1]):
-   xlim(setOptObj.xAxis[0],setOptObj.xAxis[1])
-  if(setOptObj.yAxis[0]<setOptObj.yAxis[1]):
-   ylim(setOptObj.yAxis[0],setOptObj.yAxis[1])
+  if(insertOptObj.xAxis[0]<insertOptObj.xAxis[1]):
+   xlim(insertOptObj.xAxis[0],insertOptObj.xAxis[1])
+  if(insertOptObj.yAxis[0]<insertOptObj.yAxis[1]):
+   ylim(insertOptObj.yAxis[0],insertOptObj.yAxis[1])
 
-  plotClass.saveOpt(setOptObj)
+  if(optMode=="setOpt"):
+   plotClass.saveOpt(insertOptObj)
 
   savefig("plt.png")
   show()

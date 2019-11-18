@@ -10,18 +10,21 @@ parser.add_argument("-d",type=str,help="data file")
 parser.add_argument("-s","--foo",action="store_true",help="set options")
 args,data=parser.parse_known_args()
 
-plotObj=plot.plotClass
-readOptObj=readOpt.readOptClass
+plotObj=plot.plotClass()
+readOptObj=readOpt.readOptClass(data)
 
 if((args.o==None)&(args.foo==False)):
  plotObj.simplePlot(data)
 
 if(args.foo==True):
- plotObj.optionsPlot(data)
+ optMode="setOpt"
+ plotObj.optionsPlot(data,optMode)
 
 if(args.o!=None):
- readOptObj.readOpt(args.o)
- 
+ plotObj.optFile=args.o
+
+ optMode="readOpt"
+ plotObj.optionsPlot(data,optMode)
 
 
 

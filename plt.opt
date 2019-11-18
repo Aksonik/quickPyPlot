@@ -1,8 +1,8 @@
 xyCol 1 2
-xyErrCol 0 3
-dataSets 1
-xySubPlt 1 1
-labels -,-,-,-,-,-
-logSca -
+xyErrCol 0 0
+dataSets 2
+xySubPlt 1 3
+labels aa10,aa30,aa5,cg10,cg30,cg5
+logSca xy
 xAxis 0 0
 yAxis 0 0
