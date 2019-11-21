@@ -8,11 +8,11 @@ source ~/.bashrc
 
 
 
-### guess options (options file is not provided):
+### generates a simple plot:
 #quickPyPlot input/csd/aa/c*/csd.res
 
-### set options (option file is not provided):
+### asks for options:
 #quickPyPlot -s input/csd/*/c*/csd.res
 
-### read options (option file is provided):"
+### read options:
 quickPyPlot -o plt.opt input/csd/*/c*/csd.res

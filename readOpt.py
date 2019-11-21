@@ -23,7 +23,7 @@ class readOptClass():
   self.yAxis=[0,0]
 
  def readOpt(self,optFile):
-  print("Read options from hear:",optFile)
+  print("Read options from:",optFile)
 
   gplt=open(str(optFile),"r")
 
@@ -60,25 +60,3 @@ class readOptClass():
     self.yAxis[1]=int(split[2])
 
   gplt.close()
-
-
-
-
-
-"""
-  if(split[0]=="ErrorColumn:"):
-   colxerr=int(split[1])
-   colyerr=int(split[2])
- 
-  if(split[0]=="DataSets:"):
-   datasets=int(split[1])
-
-  if(split[0]=="Labels:"):
-   labels=split[1].split(",")
-
-  if((split[0]=="Log:")&(len(split)!=1)):
-   log=split[1]
- 
-  if((split[0]=="Xaxis:")&(len(split)==3)):
-   xaxis=split[1]
-"""
