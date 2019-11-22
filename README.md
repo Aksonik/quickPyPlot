@@ -21,7 +21,7 @@
 
 #### If the options file is provided the program reads options from this file: 
 
-*quickPyPlot -o option.opt input/csd/aa/c*/csd.res* 
+*quickPyPlot -o option.opt input/csd/aa/c\*/csd.res* 
 
 #### If *-f* option is set the program fits a function: 
 
