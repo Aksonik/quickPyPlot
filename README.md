@@ -13,11 +13,11 @@
 
 #### If only input data are provided the program generates a simple plot with default options: 
 
-*quickPyPlot input/csd/aa/c*/csd.res*
+*quickPyPlot input/csd/aa/c\*/csd.res*
 
 #### If *-s* option is set the program asks for options and generates the options file (for further usage, as below):
 
-*quickPyPlot input/csd/aa/c*/csd.res  -s*
+*quickPyPlot input/csd/aa/c\*/csd.res  -s*
 
 #### If the options file is provided the program reads options from this file: 
 
