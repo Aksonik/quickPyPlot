@@ -1,5 +1,5 @@
 # quickPyPlot
-## An interface for quick plotting high quality figures with Python.
+## Interface for quick plotting high-quality figures with Python.
 
 #### A path to the executable might be added to the *~/.bashrc*:
 
@@ -11,19 +11,23 @@
 
 *source ~/.bashrc*
 
-#### If only input data are provided the program generates a simple plot: 
+#### If only input data are provided the program generates a simple plot with default options: 
 
-*python main.py input/csd/aa/c*/csd.res*
+*quickPyPlot input/csd/aa/c*/csd.res*
 
-#### If *-s* option is set the program asks for options and generates the options file (for further usage):
+#### If *-s* option is set the program asks for options and generates the options file (for further usage, as below):
 
-*python main.py -s input/csd/aa/c*/csd.res*
+*quickPyPlot input/csd/aa/c*/csd.res  -s*
 
 #### If the options file is provided the program reads options from this file: 
 
-*python main.py -o option.opt input/csd/aa/c*/csd.res* 
+*quickPyPlot -o option.opt input/csd/aa/c*/csd.res* 
 
+#### If *-f* option is set the program fits a function: 
 
+*quickPyPlot input/rcf/rcf_?.res -f*
+
+For the present the function is defined in *fit.py* module. The example shows fitting of a double exponential function to rotatinal autocorrelation data.
 
 #### Required libraries
 

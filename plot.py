@@ -4,12 +4,14 @@ from pylab import *
 import setOpt
 import readOpt
 import styles
+import fit
 
 class plotClass():
 
  def __init__(self):
   self.optFile="-"
 
+ """
  def simplePlot(self,dataFiles):
   for f in dataFiles:
    data=np.loadtxt(f)
@@ -19,6 +21,7 @@ class plotClass():
    plot(x,y)
   savefig("plt.png")
   show()
+  """
 
  def saveOpt(insertOptObj):
   fileOpt=open("plt.opt","w")
@@ -43,10 +46,13 @@ class plotClass():
 
   fileOpt.close()
 
- def optionsPlot(self,dataFiles,optMode):
+ def optionsPlot(self,dataFiles,optMode,optFit):
 
   #fig=figure(figsize=(10,8))
   #fig.subplots_adjust(left=0.12,bottom=0.10,right=0.98,top=0.95,hspace=0.05,wspace=0.05)
+
+  if(optMode=="defOpt"):
+   insertOptObj=setOpt.setOptClass(dataFiles)
 
   if(optMode=="setOpt"):
    insertOptObj=setOpt.setOptClass(dataFiles)
@@ -123,7 +129,13 @@ class plotClass():
    x=data[:,insertOptObj.xyCol[0]-1]
    y=data[:,insertOptObj.xyCol[1]-1]
 
-   print(n,f,"label:",labelsOrder[n-1],"color:",styles.colors[colorNum],"style:",styles.styles[styleNum])
+   print(n,f,"label:",labelsOrder[n-1],"color:",styles.colors[colorNum],"style:",styles.styles[styleNum],"marker:",styles.markers[0])
+
+   ### fit
+
+   if(optFit==True):
+    fitObj=fit.fitClass(x,y)
+    yfit=fitObj.fit()
 
 ### plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot
   
@@ -131,14 +143,22 @@ class plotClass():
         color=styles.colors[colorNum],\
         linewidth=styles.widths[widthNum],\
         linestyle=styles.styles[styleNum],\
-        label=labelsOrder[n-1])
+        label=labelsOrder[n-1],\
+        marker=styles.markers[0])
+
+   if(optFit==True):
+    plot(x,yfit,\
+         color=styles.colors[colorNum],\
+         linewidth=styles.widths[widthNum],\
+         linestyle=styles.styles[styleNum],\
+         alpha=0.5)
 
    if(insertOptObj.xyErrCol[0]!=0):
     xerr=data[:,insertOptObj.xyErrCol[0]-1]
-    errorbar(x,y,xerr=xerr)
+    errorbar(x,y,xerr=xerr,linestyle="",capsize=1.0)
    if(insertOptObj.xyErrCol[1]!=0):
     yerr=data[:,insertOptObj.xyErrCol[1]-1]
-    errorbar(x,y,yerr=yerr)
+    errorbar(x,y,yerr=yerr,linestyle="",capsize=2.0)
 
    if((insertOptObj.logSca=="x")|(insertOptObj.logSca=="xy")):
     ax.set_xscale("log")

@@ -9,10 +9,13 @@ source ~/.bashrc
 
 
 ### generates a simple plot:
-#quickPyPlot input/csd/aa/c*/csd.res
+#quickPyPlot input/csd/*/c*/csd.res
 
 ### asks for options:
 #quickPyPlot -s input/csd/*/c*/csd.res
 
 ### read options:
-quickPyPlot -o plt.opt input/csd/*/c*/csd.res
+#quickPyPlot -o plt.opt input/csd/*/c*/csd.res
+
+### fit a function
+quickPyPlot -f input/rcf/rcf_?.res

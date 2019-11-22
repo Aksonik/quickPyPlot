@@ -46,7 +46,7 @@ class readOptClass():
    if(split[0]=="labels"):
     labels_split=split[1].split(",")
     for i in range(0,len(labels_split)):		# substitutes empty labels
-     self.labels[i]=labels_split[i]
+     self.labels[i]=labels_split[i].rstrip()		# rstrip removes \n
 
    if(split[0]=="logSca"):
     self.logSca=split[1]

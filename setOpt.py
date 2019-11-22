@@ -13,6 +13,7 @@ class setOptClass():
   self.xyErrCol=[0,0]
   self.dataSets=1
   self.xySubPlt=[1,1]
+  self.dataFiles=dataFiles
 
   self.labels=[]
   for i in range(0,len(dataFiles)):	# generates empty labels
@@ -43,11 +44,15 @@ class setOptClass():
    subPltSplit=subPlt_input.split(" ")
    self.xySubPlt=[int(subPltSplit[0]),int(subPltSplit[1])]
 
-  labels_input=input("Labels - lab1,lab2, etc. [str,str etc.] (ENTER - none): ")
+  labels_input=input("Labels - lab1,lab2, etc. [str,str etc.] (ENTER - none, p - paths): ")
   if(labels_input!=""):
-   labels_split=labels_input.split(",")
-   for i in range(0,len(labels_split)):		# substitutes empty labels
-    self.labels[i]=labels_split[i]
+   if(labels_input=="p"):
+    for i in range(0,len(self.dataFiles)):	# greek letters: $\lambda$
+     self.labels[i]=self.dataFiles[i]
+   else:
+    labels_split=labels_input.split(",")
+    for i in range(0,len(labels_split)):		# substitutes empty labels
+     self.labels[i]=labels_split[i]
 
   logSca_input=input("Logarithmic scales - x | y | xy (ENETER - none): ")
   if(logSca_input!=""):
