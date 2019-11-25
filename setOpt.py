@@ -23,12 +23,17 @@ class setOptClass():
   self.xAxis=[0,0]
   self.yAxis=[0,0]
 
+  ### map
+
+  self.xyzCol=[1,2,3]
+
+ ### regular plot
+
  def setOpt(self):
   xyCol_input=input("Columns - x y [int int] (ENTER - 1 2): ")
   if(xyCol_input!=""):
    xyColSplit=xyCol_input.split(" ")
    self.xyCol=[int(xyColSplit[0]),int(xyColSplit[1])]
-#   self.yCol=int(xyColSplit[1])
 
   xyErrCol_input=input("Columns - xErr yErr [int int] (ENTER | 0 - none): ")
   if(xyErrCol_input!=""):
@@ -39,7 +44,7 @@ class setOptClass():
   if(dataSets!=""):
    self.dataSets=int(dataSets)
 
-  subPlt_input=input("Subplots - x y [int int] (ENTER - none): ")
+  subPlt_input=input("Subplots - x y [int int] (ENTER - 1 1): ")
   if(subPlt_input!=""):
    subPltSplit=subPlt_input.split(" ")
    self.xySubPlt=[int(subPltSplit[0]),int(subPltSplit[1])]
@@ -67,3 +72,20 @@ class setOptClass():
   if(yAxis_input!=""):
    yAxis=yAxis_input.split(" ")
    self.yAxis=[float(yAxis[0]),float(yAxis[1])]
+
+ ### color map
+
+ def setOptMap(self):
+  xyzCol_input=input("Columns - x y z [int int int] (ENTER - 1 2 3): ")
+  if(xyzCol_input!=""):
+   xyzColSplit=xyzCol_input.split(" ")
+   self.xyzCol=[int(xyzColSplit[0]),int(xyzColSplit[1]),int(xyzColSplit[2])]
+
+  dataSets=input("Sets - n [int] (ENTER - 1): ")
+  if(dataSets!=""):
+   self.dataSets=int(dataSets)
+
+  subPlt_input=input("Subplots - x y [int int] (ENTER - 1 1): ")
+  if(subPlt_input!=""):
+   subPltSplit=subPlt_input.split(" ")
+   self.xySubPlt=[int(subPltSplit[0]),int(subPltSplit[1])]

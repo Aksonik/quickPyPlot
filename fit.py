@@ -10,6 +10,8 @@ class fitClass():
 
  def fit(self):
 
+  #slope,intercept,r_value,p_value,std_err=stats.linregress(xx,yy)
+
   def func(x,SR2,TRs,TRf):
    return SR2*exp(-x/TRs)+(1-SR2)*exp(-x/TRf)
 

@@ -23,6 +23,133 @@ class plotClass():
   show()
   """
 
+ def writeMapOpt(insertOptObj):
+  fileOpt=open("plt_map.opt","w")
+  fileOpt.write("xyzCol %d %d %d\n" % (insertOptObj.xyzCol[0],insertOptObj.xyzCol[1],insertOptObj.xyzCol[2]))
+  fileOpt.write("dataSets %i\n" % insertOptObj.dataSets)
+  fileOpt.write("xySubPlt %i %i\n" % (insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1]))
+  fileOpt.close()
+
+
+ def mapPlot(self,dataFiles,optMode):
+
+  if(optMode=="defOpt"):
+   insertOptObj=setOpt.setOptClass(dataFiles)
+
+  if(optMode=="setOpt"):
+   insertOptObj=setOpt.setOptClass(dataFiles)
+   insertOptObj.setOptMap()
+
+  #fig=figure(figsize=(8,6))
+  #fig.subplots_adjust(left=0.12,bottom=0.12,right=0.94,top=0.94)
+
+  dataNum=len(dataFiles)			# total number of input data, e.g. 6
+  dataSets=insertOptObj.dataSets		# number of data sets, e.g. 2 - AA, CG
+  dataSubsets=int(dataNum/dataSets)		# number of data per set, e.g. 3 - 5%, 10%, 30%
+
+  ax=subplot(1,1,1)
+
+  subPltNum=0
+ 
+  n=0
+  for f in dataFiles:	# Order
+   n+=1
+   data=np.loadtxt(f)
+
+   x=data[:,insertOptObj.xyzCol[0]-1]
+   y=data[:,insertOptObj.xyzCol[1]-1]
+   z=data[:,insertOptObj.xyzCol[2]-1]
+
+   ### subplots
+
+   if((insertOptObj.xySubPlt[0]>1)|(insertOptObj.xySubPlt[1]>1)):
+    if(dataSets>1):
+     if(n%dataSets==1):
+      subPltNum+=1
+      ax=subplot(insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1],subPltNum) # e.g (1,4)(2,5)(3,6)
+    elif(dataSets==1):
+     subPltNum+=1
+     ax=subplot(insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1],subPltNum) # e.g (1)(2)(3)(4)(5)(6)
+
+### matrix dimension
+
+   for i in range(1,len(y)):	# x1,y1 -> x1,y2 -> x1,y3 -> ...
+    if(y[i]<y[i-1]):
+     ny=i
+     nx=int(len(x)/ny)
+     break
+
+   for i in range(1,len(x)):	# x1,y1 -> x2,y1 -> x3,y1 -> ...
+    if(x[i]<x[i-1]):
+     nx=i
+     ny=int(len(y)/nx)
+     break
+
+   print("dimension:",nx,ny)
+
+### matrix
+
+   Z=np.zeros((nx,ny))
+
+   for i in range(0,len(x)):
+    ix=int(x[i]-1)
+    iy=int(y[i]-1)
+    Z[ix,iy]=z[i]
+
+   Z=np.transpose(Z)	# pyplot interprets x column as y, and vice versa
+
+   extent=(0,nx,0,ny)
+
+   my_cmap=matplotlib.cm.get_cmap('jet_r')
+   #my_cmap.set_over('w')
+   #my_cmap.set_under('w')
+
+   vmin=min(z[nonzero(z)])
+   vmax=max(z[nonzero(z)])
+   #print(vmin,"-",vmax)
+
+   valmin=min(z)
+   valmax=max(z)
+
+   z[z>valmax]=valmin
+   z[z==0.0]=valmax
+
+
+   bbcont=arange(valmin,valmax+1.0,1.0)
+   bb=arange(valmin,valmax+0.2,0.2)
+
+   #palette=plt.matplotlib.colors.LinearSegmentedColormap('jet3',plt.cm.datad['jet'],2048)
+
+   #plt.imshow(Z,extent=extent,cmap="hot",origin='lower',vmin=min(z),vmax=max(z),aspect='auto',interpolation='lanczos')
+   ### origin='lower',aspect='auto',interpolation='lanczos' 
+   map=plt.contour(Z,bbcont,extent=extent,vmin=valmin,vmax=valmax,linewidths=0.5,colors='k',alpha=0.5)
+   map=plt.contourf(Z,bb,extent=extent,cmap=my_cmap,vmin=valmin,vmax=valmax)
+
+   """
+   cb=plt.colorbar(map)
+   cb.set_clim(vmin=valmin,vmax=valmax)
+   cb.set_ticks(arange(valmin,valmax+2.0,2.0))
+   cb.ax.tick_params(labelsize=20)
+   cb.set_ticklabels(arange(valmin,valmax+2.0,2.0))
+
+   cb.set_label(r'average minimum C$\alpha$ distance [$\AA$]',fontsize=24)
+   """
+
+   #plt.ylabel(r'closest residue',fontsize=24)
+   #plt.xlabel(r'residue',fontsize=24)
+
+   xlim(0,nx)
+   ylim(0,ny)
+
+   #xticks(arange(5,40,5),fontsize=20)
+   #yticks(arange(5,40,5),fontsize=20)
+
+  if(optMode=="setOpt"):
+   plotClass.writeMapOpt(insertOptObj)
+
+  savefig("plt_map.png")
+  plt.show()
+
  def saveOpt(insertOptObj):
   fileOpt=open("plt.opt","w")
 
