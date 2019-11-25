@@ -19,7 +19,7 @@
 
 *quickPyPlot input/csd/aa/c\*/csd.res  -s*
 
-#### If the options file is provided the program reads options from this file: 
+#### If the options file is provided (-o file) the program reads options from this file: 
 
 *quickPyPlot -o option.opt input/csd/aa/c\*/csd.res* 
 
@@ -28,6 +28,14 @@
 *quickPyPlot input/rcf/rcf_?.res -f*
 
 For the present the function is defined in *fit.py* module. The example shows fitting of a double exponential function to rotatinal autocorrelation data.
+
+#### If *-m* option is set the program plots a color map: 
+
+*quickPyPlot -m input/map/c\{8,16,32\}/contacts.res -s*
+
+#### If the data file is provided (*-d file*) the program reads paths to data from this file: 
+
+*quickPyPlot -d plt.dat*
 
 #### Required libraries
 
