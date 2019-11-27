@@ -33,7 +33,7 @@ For the present the function is defined in *fit.py* module. The example shows fi
 
 *quickPyPlot -m input/map/c\{8,16,32\}/contacts.res -s*
 
-#### If the data file is provided (*-d file*) the program reads paths to data from this file: 
+#### If the data file is provided (*-d file*) the program reads paths to the data from this file: 
 
 *quickPyPlot -d plt.dat*
 
@@ -44,3 +44,19 @@ python 3.5
 pip install numpy
 
 pip install matplotlib
+
+#### REMARKS
+
+*sets* option indicates number [int] of functions per plot/subplot.
+
+#### TO-DO-LIST
+
+Column-style, steps-style plots. 
+
+Tabels.
+
+Plotting a given function.
+
+Axis and figure title.
+
+Figure size.

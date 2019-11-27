@@ -3,7 +3,6 @@ class readDataClass():
   fileData=open(str(readDataFile),"r")
   data=[]
   for f in fileData:
-   data.append(f.rstrip('\n	'))
+   data.append(f.rstrip('\n'))
   fileData.close()
   return data
-

@@ -22,6 +22,10 @@ class readOptClass():
   self.xAxis=[0,0]
   self.yAxis=[0,0]
 
+  # map
+
+  self.xyzCol=[1,2,3]	
+
  def readOpt(self,optFile):
   print("Read options from:",optFile)
 
@@ -58,5 +62,25 @@ class readOptClass():
    if(split[0]=="yAxis"):
     self.yAxis[0]=int(split[1])
     self.yAxis[1]=int(split[2])
+
+  gplt.close()
+
+ def readOptMap(self,optFile):
+  print("Read options from:",optFile)
+
+  gplt=open(str(optFile),"r")
+
+  for line in gplt:
+   split=line.split(" ")
+
+   if(split[0]=="xyzCol"):
+    self.xyzCol[0]=int(split[1])
+    self.xyzCol[1]=int(split[2])
+    self.xyzCol[2]=int(split[3])
+   if(split[0]=="dataSets"):
+    self.dataSets=int(split[1])
+   if(split[0]=="xySubPlt"):
+    self.xySubPlt[0]=int(split[1])
+    self.xySubPlt[1]=int(split[2])
 
   gplt.close()

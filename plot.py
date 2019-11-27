@@ -30,6 +30,11 @@ class plotClass():
   fileOpt.write("xySubPlt %i %i\n" % (insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1]))
   fileOpt.close()
 
+ #############
+ #           #
+ # color map #
+ #           #
+ #############
 
  def mapPlot(self,dataFiles,optMode):
 
@@ -40,7 +45,11 @@ class plotClass():
    insertOptObj=setOpt.setOptClass(dataFiles)
    insertOptObj.setOptMap()
 
-  #fig=figure(figsize=(8,6))
+  if(optMode=="readOpt"):
+   insertOptObj=readOpt.readOptClass(dataFiles)
+   insertOptObj.readOptMap(self.optFile)
+
+  #fig=figure(figsize=(18,12))
   #fig.subplots_adjust(left=0.12,bottom=0.12,right=0.94,top=0.94)
 
   dataNum=len(dataFiles)			# total number of input data, e.g. 6
@@ -114,7 +123,6 @@ class plotClass():
    z[z>valmax]=valmin
    z[z==0.0]=valmax
 
-
    bbcont=arange(valmin,valmax+1.0,1.0)
    bb=arange(valmin,valmax+0.2,0.2)
 
@@ -172,6 +180,12 @@ class plotClass():
   fileOpt.write("yAxis %d %d\n" % (insertOptObj.yAxis[0],insertOptObj.yAxis[1]))
 
   fileOpt.close()
+
+ ################
+ #              #
+ # regular plot #
+ #              #
+ ################
 
  def optionsPlot(self,dataFiles,optMode,optFit):
 

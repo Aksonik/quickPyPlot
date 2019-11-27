@@ -14,13 +14,16 @@ parser.add_argument("-f","--fit",action="store_true",help="fit a function")
 parser.add_argument("-m","--map",action="store_true",help="plot a color map")
 args,data=parser.parse_known_args()
 
+
+
 if((args.d!=None)&(data==[])):
- print("Read from a data file:",args.d)
+ print("Read data from a file:",args.d)
  readDataObj=readData.readDataClass()
  readDataObj.readData(args.d)
  data=readDataObj.readData(args.d)
 
-if(args.d==None):
+if((args.d==None)&(data!=[])):
+ print("Read data:",data)
  writeDataObj=writeData.writeDataClass()
  writeDataObj.writeData(data)
 
@@ -28,27 +31,45 @@ if(args.d==None):
 
 plotObj=plot.plotClass()
 
-if((args.o==None)&(args.ask==False)&(args.map==False)):	# default options [none]
- optMode="defOpt"
- plotObj.optionsPlot(data,optMode,args.fit)
+if(args.map==False):
+ print("Plot type: regular")
 
-if((args.ask==True)&(args.map==False)&(args.o==None)):	# ask for options [-s] (generates an options file)
- optMode="setOpt"
- plotObj.optionsPlot(data,optMode,args.fit)
+ if(args.fit==True):
+  print(" Fit a function:")
 
-if((args.o!=None)&(args.ask==False)&(args.map==False)):			# read options from a file [-o file]
- plotObj.optFile=args.o
+ if((args.o==None)&(args.ask==False)):
+  print(" Default options:")
+  optMode="defOpt"
+  plotObj.optionsPlot(data,optMode,args.fit)
 
- optMode="readOpt"
- plotObj.optionsPlot(data,optMode,args.fit)
+ if((args.o==None)&(args.ask==True)):
+  print(" Set options [-s]:")
+  optMode="setOpt"
+  plotObj.optionsPlot(data,optMode,args.fit)
+
+ if((args.o!=None)&(args.ask==False)):
+  print(" Read options from a file [-o]:", args.o)
+  plotObj.optFile=args.o
+  optMode="readOpt"
+  plotObj.optionsPlot(data,optMode,args.fit)
 
 
 
-if((args.map==True)&(args.o==None)&(args.ask==False)&(args.fit==False)):			# color map
- optMode="defOpt"
- plotObj.mapPlot(data,optMode)
+if((args.map==True)&(args.fit==False)):
+ print("Plot type: color map [-m]:")
 
-if((args.map==True)&(args.o==None)&(args.ask==True)&(args.fit==False)):			# color map
- optMode="setOpt"
- plotObj.mapPlot(data,optMode)
+ if((args.o==None)&(args.ask==False)):
+  print(" Default options:")  
+  optMode="defOpt"
+  plotObj.mapPlot(data,optMode)
 
+ if((args.o==None)&(args.ask==True)):	
+  print(" Set options [-s]:")  
+  optMode="setOpt"
+  plotObj.mapPlot(data,optMode)
+
+ if((args.o!=None)&(args.ask==False)):
+  print(" Read options from a file [-o]:", args.o)
+  plotObj.optFile=args.o
+  optMode="readOpt"
+  plotObj.mapPlot(data,optMode)
