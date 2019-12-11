@@ -60,3 +60,5 @@ Plotting a given function.
 Axis and figure title.
 
 Figure size.
+
+The work was done at the Michigan State University.
