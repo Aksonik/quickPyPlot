@@ -80,7 +80,7 @@ class plotClass():
      subPltNum+=1
      ax=subplot(insertOptObj.xySubPlt[0],insertOptObj.xySubPlt[1],subPltNum) # e.g (1)(2)(3)(4)(5)(6)
 
-### matrix dimension
+   ### matrix dimension
 
    for i in range(1,len(y)):	# x1,y1 -> x1,y2 -> x1,y3 -> ...
     if(y[i]<y[i-1]):
@@ -96,7 +96,7 @@ class plotClass():
 
    print("dimension:",nx,ny)
 
-### matrix
+   ### matrix
 
    Z=np.zeros((nx,ny))
 
@@ -158,6 +158,12 @@ class plotClass():
   savefig("plt_map.png")
   plt.show()
 
+################
+#              #
+# save options #
+#              #
+################
+
  def saveOpt(insertOptObj):
   fileOpt=open("plt.opt","w")
 
@@ -176,8 +182,22 @@ class plotClass():
 
   fileOpt.write("logSca %s\n" % insertOptObj.logSca)
 
-  fileOpt.write("xAxis %d %d\n" % (insertOptObj.xAxis[0],insertOptObj.xAxis[1]))
-  fileOpt.write("yAxis %d %d\n" % (insertOptObj.yAxis[0],insertOptObj.yAxis[1]))
+  fileOpt.write("xAxis %.3f %.3f\n" % (insertOptObj.xAxis[0],insertOptObj.xAxis[1]))
+  fileOpt.write("yAxis %.3f %.3f\n" % (insertOptObj.yAxis[0],insertOptObj.yAxis[1]))
+
+  fileOpt.write("xTitle %s\n" % (insertOptObj.xTitle))
+  fileOpt.write("yTitle %s\n" % (insertOptObj.yTitle))
+
+  fileOpt.write("title %s\n" % (insertOptObj.title))
+
+  fileOpt.write("grid %s\n" % insertOptObj.grid)
+
+  fileOpt.write("xMargin %4.3f %4.3f\n" % (insertOptObj.xMargin[0],insertOptObj.xMargin[1]))
+  fileOpt.write("yMargin %4.3f %4.3f\n" % (insertOptObj.yMargin[0],insertOptObj.yMargin[1]))
+
+  fileOpt.write("xySize %4.3f %4.3f\n" % (insertOptObj.xySize[0],insertOptObj.xySize[1]))
+
+  fileOpt.write("xySubSpace %4.3f %4.3f\n" % (insertOptObj.xySubSpace[0],insertOptObj.xySubSpace[1]))
 
   fileOpt.close()
 
@@ -189,9 +209,6 @@ class plotClass():
 
  def optionsPlot(self,dataFiles,optMode,optFit):
 
-  #fig=figure(figsize=(10,8))
-  #fig.subplots_adjust(left=0.12,bottom=0.10,right=0.98,top=0.95,hspace=0.05,wspace=0.05)
-
   if(optMode=="defOpt"):
    insertOptObj=setOpt.setOptClass(dataFiles)
 
@@ -202,6 +219,10 @@ class plotClass():
   if(optMode=="readOpt"):
    insertOptObj=readOpt.readOptClass(dataFiles)
    insertOptObj.readOpt(self.optFile)
+
+  fig=figure(figsize=(insertOptObj.xySize[0],insertOptObj.xySize[1]))
+  fig.subplots_adjust(left=insertOptObj.xMargin[0],right=insertOptObj.xMargin[1],bottom=insertOptObj.yMargin[0],top=insertOptObj.yMargin[1], \
+                      hspace=insertOptObj.xySubSpace[0],wspace=insertOptObj.xySubSpace[1])
 
   ### 1.  1.a) AA: 10%
   ### 2.  1.b) AA: 30%
@@ -307,12 +328,23 @@ class plotClass():
     ax.set_yscale("log")
 
    if(labelsOrder[0]!="-"):
-    legend(loc=1,fontsize=12,fancybox=True).get_frame().set_alpha(0.5)
+    legend(loc=1,fontsize=8,fancybox=True).get_frame().set_alpha(0.5)
 
   if(insertOptObj.xAxis[0]<insertOptObj.xAxis[1]):
    xlim(insertOptObj.xAxis[0],insertOptObj.xAxis[1])
   if(insertOptObj.yAxis[0]<insertOptObj.yAxis[1]):
    ylim(insertOptObj.yAxis[0],insertOptObj.yAxis[1])
+
+  if(insertOptObj.xTitle!="-"):
+   xlabel(insertOptObj.xTitle)
+  if(insertOptObj.yTitle!="-"):
+   ylabel(insertOptObj.yTitle)
+
+  if(insertOptObj.title!="-"):
+   title(insertOptObj.title)
+
+  if(insertOptObj.grid=="yes"):
+   grid()
 
 ### plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot
 
