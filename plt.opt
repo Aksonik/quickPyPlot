@@ -4,7 +4,13 @@ dataSets 2
 xySubPlt 1 3
 labels -,-,-,-,-,-
 logSca -
-xAxis 0 0
-yAxis 0 0
-xTitle -
-yTitle -
+xAxis 0.000 0.000
+yAxis 0.000 0.000
+xTitle cluster size
+yTitle distribution
+title CSD
+grid yes
+xMargin 0.150 0.950
+yMargin 0.150 0.950
+xySize 6.000 3.000
+xySubSpace 0.050 0.050

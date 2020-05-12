@@ -55,6 +55,8 @@ pip install matplotlib
 
 #### TO-DO-LIST
 
+Documentation with examples.
+
 Column-style, steps-style plots. 
 
 Tabels.
@@ -63,6 +65,12 @@ Plotting a function.
 
 Markers and labels.
 
-Block averaging (smoothing).
+Block averaging and skipping.
 
 Log file for an executed command.
+
+Provide a path to a style file.
+
+Common titles for a set of plots.
+
+Common color bar for a set of color maps.
