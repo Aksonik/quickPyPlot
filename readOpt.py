@@ -22,6 +22,20 @@ class readOptClass():
   self.xAxis=[0,0]
   self.yAxis=[0,0]
 
+  self.xTitle="-"
+  self.yTitle="-"
+
+  self.title="-"
+
+  self.grid="-"
+
+  self.xMargin=[0.15,0.96]
+  self.yMargin=[0.18,0.95]
+
+  self.xySize=[6,3]
+
+  self.xySubSpace=[0.05,0.05]
+
   # map
 
   self.xyzCol=[1,2,3]	
@@ -56,12 +70,39 @@ class readOptClass():
     self.logSca=split[1]
 
    if(split[0]=="xAxis"):
-    self.xAxis[0]=int(split[1])
-    self.xAxis[1]=int(split[2])
+    self.xAxis[0]=float(split[1])
+    self.xAxis[1]=float(split[2])
 
    if(split[0]=="yAxis"):
-    self.yAxis[0]=int(split[1])
-    self.yAxis[1]=int(split[2])
+    self.yAxis[0]=float(split[1])
+    self.yAxis[1]=float(split[2])
+
+   if(split[0]=="xTitle"):
+    self.xTitle=str(" ".join(split[1:]))
+   if(split[0]=="yTitle"):
+    self.yTitle=str(" ".join(split[1:]))
+
+   if(split[0]=="title"):
+    self.title=str(" ".join(split[1:]))
+
+   if(split[0]=="grid"):
+    self.grid=split[1]
+
+   if(split[0]=="xMargin"):
+    self.xMargin[0]=float(split[1])
+    self.xMargin[1]=float(split[2])
+
+   if(split[0]=="yMargin"):
+    self.yMargin[0]=float(split[1])
+    self.yMargin[1]=float(split[2])
+
+   if(split[0]=="xySize"):
+    self.xySize[0]=float(split[1])
+    self.xySize[1]=float(split[2])
+
+   if(split[0]=="xySubSpace"):
+    self.xySubSpace[0]=float(split[1])
+    self.xySubSpace[1]=float(split[2])
 
   gplt.close()
 

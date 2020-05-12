@@ -23,6 +23,20 @@ class setOptClass():
   self.xAxis=[0,0]
   self.yAxis=[0,0]
 
+  self.xTitle="-"
+  self.yTitle="-"
+
+  self.title="-"
+
+  self.grid="-"
+
+  self.xMargin=[0.15,0.95]
+  self.yMargin=[0.15,0.95]
+
+  self.xySize=[6,3]
+
+  self.xySubSpace=[0.05,0.05]
+
   ### map
 
   self.xyzCol=[1,2,3]
@@ -72,6 +86,47 @@ class setOptClass():
   if(yAxis_input!=""):
    yAxis=yAxis_input.split(" ")
    self.yAxis=[float(yAxis[0]),float(yAxis[1])]
+
+  xTitle_input=input("X axis title - string (ENTER - none): ")
+  if(xTitle_input!=""):
+   xTitle=xTitle_input
+   self.xTitle=str(xTitle)
+
+  yTitle_input=input("Y axis title - string (ENTER - none): ")
+  if(yTitle_input!=""):
+   yTitle=yTitle_input
+   self.yTitle=str(yTitle)
+
+  title_input=input("Figure title - string (ENTER - none): ")
+  if(title_input!=""):
+   title=title_input
+   self.title=str(title)
+
+  grid_input=input("Grid - yes | no [string] (ENTER - no): ")
+  if(grid_input=="yes"):
+   self.grid="yes"
+  elif(grid_input=="no"):
+   self.grid="-"
+
+  xMargin_input=input("X margin - left right (ENTER - 0.15 0.95): ")
+  if(xMargin_input!=""):
+   xMargin=xMargin_input.split(" ")
+   self.xMargin=[float(xMargin[0]),float(xMargin[1])]
+
+  yMargin_input=input("Y margin - bottom top (ENTER - 0.15 0.95): ")
+  if(yMargin_input!=""):
+   yMargin=yMargin_input.split(" ")
+   self.yMargin=[float(yMargin[0]),float(yMargin[1])]
+
+  xySize_input=input("Canvas size - x y (ENTER - 6 3): ")
+  if(xySize_input!=""):
+   xySize=xySize_input.split(" ")
+   self.xySize=[float(xySize[0]),float(xySize[1])]
+
+  xySubSpace_input=input("Subplot space - x y (ENTER - 0.05 0.05): ")
+  if(xySubSpace_input!=""):
+   xySubSpace=xySubSpace_input.split(" ")
+   self.xySubSpace=[float(xySubSpace[0]),float(xySubSpace[1])]
 
  ### color map
 

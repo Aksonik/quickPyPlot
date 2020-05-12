@@ -6,3 +6,5 @@ labels -,-,-,-,-,-
 logSca -
 xAxis 0 0
 yAxis 0 0
+xTitle -
+yTitle -

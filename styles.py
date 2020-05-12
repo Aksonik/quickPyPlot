@@ -1,4 +1,4 @@
-colors=["red","blue","black","orange","magenta","brown","gray","green","pink","violet","gold","turquoise"]
+colors=["red","blue","black","orange","magenta","brown","gray","green","pink","violet","gold","turquoise","navy","silver","tan","royalblue","maroon","coral","olive","salmon","chocolate","lime","indigo"]
 widths=[1,2,3,4,5]
 styles=["-","--",":","-.","-",""]
 markers=["",".","o","s","^","d","p","*","x","+"]

@@ -11,13 +11,17 @@
 
 *source ~/.bashrc*
 
+### Available options can be seen with:
+
+*quickPyPlot -h*
+
 #### If only input data are provided the program generates a simple plot with default options: 
 
 *quickPyPlot input/csd/aa/c\*/csd.res*
 
 #### If *-s* option is set the program asks for options and generates the options file (for further usage, as below):
 
-*quickPyPlot input/csd/aa/c\*/csd.res  -s*
+*quickPyPlot input/csd/aa/c\*/csd.res -s*
 
 #### If the options file is provided (-o file) the program reads options from this file: 
 
@@ -55,10 +59,10 @@ Column-style, steps-style plots.
 
 Tabels.
 
-Plotting a given function.
+Plotting a function.
 
-Axis and figure title.
+Markers and labels.
 
-Figure size.
+Block averaging (smoothing).
 
-The work was done at the Michigan State University.
+Log file for an executed command.
