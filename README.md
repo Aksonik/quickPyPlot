@@ -55,6 +55,8 @@ pip install matplotlib
 
 #### TO-DO-LIST
 
+Remove or simplify *sets* option.
+
 Block averaging and skipping.
 
 Documentation with examples.
