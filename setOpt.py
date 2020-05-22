@@ -37,6 +37,12 @@ class setOptClass():
 
   self.xySubSpace=[0.05,0.05]
 
+  self.colors=["red","blue","black","orange","magenta","brown","gray","green","pink","violet","gold","turquoise","navy","silver"]
+  self.widths=[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,3.0,4.0,5.0]
+  self.styles=["-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","--",":","-.","-",""]
+  self.markers=["","","","","","","","","","","","","","","","","","","","","","","","","","",".","o","s","^","d","p","*","x","+"]
+  self.alphas=[1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,0.75,0.50]
+
   ### map
 
   self.xyzCol=[1,2,3]
@@ -127,6 +133,36 @@ class setOptClass():
   if(xySubSpace_input!=""):
    xySubSpace=xySubSpace_input.split(" ")
    self.xySubSpace=[float(xySubSpace[0]),float(xySubSpace[1])]
+
+  colors_input=input("Colors - col1,col2, etc. [str,str etc.] (ENTER - default): ")
+  if(colors_input!=""):
+   colors_split=colors_input.split(",")
+   for i in range(0,len(colors_split)):
+    self.colors[i]=colors_split[i]
+
+  widths_input=input("Widths - wid1,wid2, etc. [float,float etc.] (ENTER - default): ")
+  if(widths_input!=""):
+   widths_split=widths_input.split(",")
+   for i in range(0,len(widths_split)):
+    self.widths[i]=widths_split[i]
+
+  styles_input=input("Styles - sty1,sty2, etc. [str,str etc.] (ENTER - default): ")
+  if(styles_input!=""):
+   styles_split=styles_input.split(",")
+   for i in range(0,len(styles_split)):
+    self.styles[i]=styles_split[i]
+
+  markers_input=input("Markers - mar1,mar2, etc. [str,str etc.] (ENTER - default): ")
+  if(markers_input!=""):
+   markers_split=markers_input.split(",")
+   for i in range(0,len(markers_split)):
+    self.markers[i]=markers_split[i]
+
+  alphas_input=input("Alphas - alp1,alp2, etc. [float,float etc.] (ENTER - default): ")
+  if(alphas_input!=""):
+   alphas_split=alphas_input.split(",")
+   for i in range(0,len(alphas_split)):
+    self.alphas[i]=alphas_split[i]
 
  ### color map
 

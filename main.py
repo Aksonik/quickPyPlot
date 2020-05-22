@@ -4,6 +4,7 @@ import sys
 import plot	# module
 import writeData
 import readData
+import writeCommand
 
 parser=argparse.ArgumentParser(description="All arguments that are unknown are assumed\
  to be paths to input data files.")
@@ -14,7 +15,8 @@ parser.add_argument("-f","--fit",action="store_true",help="fit a function")
 parser.add_argument("-m","--map",action="store_true",help="plot a color map")
 args,data=parser.parse_known_args()
 
-
+writeCommandObj=writeCommand.writeCommandClass()
+writeCommandObj.writeCommand(" ".join(sys.argv))
 
 if((args.d!=None)&(data==[])):
  print("Read data from a file:",args.d)
@@ -26,8 +28,6 @@ if((args.d==None)&(data!=[])):
  print("Read data:",data)
  writeDataObj=writeData.writeDataClass()
  writeDataObj.writeData(data)
-
-
 
 plotObj=plot.plotClass()
 

@@ -3,7 +3,6 @@ import matplotlib.pyplot
 from pylab import *
 import setOpt
 import readOpt
-import styles
 import fit
 
 class plotClass():
@@ -199,6 +198,41 @@ class plotClass():
 
   fileOpt.write("xySubSpace %4.3f %4.3f\n" % (insertOptObj.xySubSpace[0],insertOptObj.xySubSpace[1]))
 
+  fileOpt.write("colors ")
+  for i in range(0,len(insertOptObj.colors)):
+   if(i<len(insertOptObj.colors)-1):
+    fileOpt.write("%s," % insertOptObj.colors[i])
+   else:
+    fileOpt.write("%s\n" % insertOptObj.colors[i])
+
+  fileOpt.write("widths ")
+  for i in range(0,len(insertOptObj.widths)):
+   if(i<len(insertOptObj.widths)-1):
+    fileOpt.write("%.1f," % insertOptObj.widths[i])
+   else:
+    fileOpt.write("%.1f\n" % insertOptObj.widths[i])
+
+  fileOpt.write("styles ")
+  for i in range(0,len(insertOptObj.styles)):
+   if(i<len(insertOptObj.styles)-1):
+    fileOpt.write("%s," % insertOptObj.styles[i])
+   else:
+    fileOpt.write("%s\n" % insertOptObj.styles[i])
+
+  fileOpt.write("markers ")
+  for i in range(0,len(insertOptObj.markers)):
+   if(i<len(insertOptObj.markers)-1):
+    fileOpt.write("%s," % insertOptObj.markers[i])
+   else:
+    fileOpt.write("%s\n" % insertOptObj.markers[i])
+
+  fileOpt.write("alphas ")
+  for i in range(0,len(insertOptObj.alphas)):
+   if(i<len(insertOptObj.alphas)-1):
+    fileOpt.write("%.1f," % insertOptObj.alphas[i])
+   else:
+    fileOpt.write("%.1f\n" % insertOptObj.alphas[i])
+
   fileOpt.close()
 
  ################
@@ -286,12 +320,21 @@ class plotClass():
      colorNum=int(n-1)
      styleNum=0
 
+   #if(insertOptObj.colors!=""):
+   colorNum=n-1
+   widthNum=n-1
+   styleNum=n-1
+   markerNum=n-1
+   alphaNum=n-1
+    
+
+   print(n,f,"label:",labelsOrder[n-1],"color:",insertOptObj.colors[colorNum],"style:",insertOptObj.styles[styleNum],"marker:",insertOptObj.markers[markerNum],\
+         insertOptObj.alphas[alphaNum],insertOptObj.widths[widthNum])
+
    ### data   
 
    x=data[:,insertOptObj.xyCol[0]-1]
    y=data[:,insertOptObj.xyCol[1]-1]
-
-   print(n,f,"label:",labelsOrder[n-1],"color:",styles.colors[colorNum],"style:",styles.styles[styleNum],"marker:",styles.markers[0])
 
    ### fit
 
@@ -302,17 +345,18 @@ class plotClass():
 ### plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot plot
   
    plot(x,y,\
-        color=styles.colors[colorNum],\
-        linewidth=styles.widths[widthNum],\
-        linestyle=styles.styles[styleNum],\
+        color=insertOptObj.colors[colorNum],\
+        linewidth=float(insertOptObj.widths[widthNum]),\
+        linestyle=insertOptObj.styles[styleNum],\
         label=labelsOrder[n-1],\
-        marker=styles.markers[0])
+        marker=insertOptObj.markers[markerNum],\
+        alpha=float(insertOptObj.alphas[alphaNum]))
 
    if(optFit==True):
     plot(x,yfit,\
-         color=styles.colors[colorNum],\
-         linewidth=styles.widths[widthNum],\
-         linestyle=styles.styles[styleNum],\
+         color=colors[colorNum],\
+         linewidth=widths[widthNum],\
+         linestyle=styles[styleNum],\
          alpha=0.5)
 
    if(insertOptObj.xyErrCol[0]!=0):

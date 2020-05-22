@@ -36,6 +36,12 @@ class readOptClass():
 
   self.xySubSpace=[0.05,0.05]
 
+  self.colors=["red","blue","black","orange","magenta","brown","gray","green","pink","violet","gold","turquoise","navy","silver"]
+  self.widths=[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,3.0,4.0,5.0]
+  self.styles=["-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","--",":","-.","-",""]
+  self.markers=["","","","","","","","","","","","","","","","","","","","","","","","","","",".","o","s","^","d","p","*","x","+"]
+  self.alphas=[1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,1.00,0.75,0.50]
+
   # map
 
   self.xyzCol=[1,2,3]	
@@ -62,9 +68,9 @@ class readOptClass():
 
 
    if(split[0]=="labels"):
-    labels_split=split[1].split(",")
+    labels_split=str(" ".join(split[1:])).split(",")
     for i in range(0,len(labels_split)):		# substitutes empty labels
-     self.labels[i]=labels_split[i].rstrip()		# rstrip removes \n
+     self.labels[i]="".join(labels_split[i].rstrip())		# rstrip removes \n
 
    if(split[0]=="logSca"):
     self.logSca=split[1]
@@ -103,6 +109,31 @@ class readOptClass():
    if(split[0]=="xySubSpace"):
     self.xySubSpace[0]=float(split[1])
     self.xySubSpace[1]=float(split[2])
+
+   if(split[0]=="colors"):
+    colors_split=split[1].split(",")
+    for i in range(0,len(colors_split)):
+     self.colors[i]=colors_split[i].rstrip()
+
+   if(split[0]=="widths"):
+    widths_split=split[1].split(",")
+    for i in range(0,len(widths_split)):
+     self.widths[i]=widths_split[i].rstrip()
+
+   if(split[0]=="styles"):
+    styles_split=split[1].split(",")
+    for i in range(0,len(styles_split)):
+     self.styles[i]=styles_split[i].rstrip()
+
+   if(split[0]=="markers"):
+    markers_split=split[1].split(",")
+    for i in range(0,len(markers_split)):
+     self.markers[i]=markers_split[i].rstrip()
+
+   if(split[0]=="alphas"):
+    alphas_split=split[1].split(",")
+    for i in range(0,len(alphas_split)):
+     self.alphas[i]=alphas_split[i].rstrip()
 
   gplt.close()
 
